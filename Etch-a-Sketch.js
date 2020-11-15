@@ -1,5 +1,7 @@
 const container= document.querySelector('#container');
 const restartButton= document.getElementById('restartButton');
+const applyButton= document.getElementById('applyButton');
+
 
 
 function makeGrid(numberOfDivsToCreate){
@@ -19,7 +21,7 @@ function makeGrid(numberOfDivsToCreate){
     }
     var gridCells = document.querySelectorAll('.grid-item'); 
     gridCells.forEach(cell => cell.addEventListener('mouseenter', changeColor)); 
-    console.log(gridCellDimensions);
+    //testing if the function makeGrid works
     console.log('Grid has been created!!')
 }
 
@@ -27,25 +29,35 @@ function changeColor(){
     this.style.backgroundColor='#F26D68'
     
 }
-
+//clearing the grid
 function clearGrid(){
-    let numOfCells= prompt('How many cells per side do you want to create?');
     
-    if (numOfCells>=1 && numOfCells<=100){
         
         while(container.hasChildNodes()){
             container.removeChild(container.lastChild);
         }
+        makeGrid(16);
+    
+    
+    
+}
+
+//changing the number of cells 
+function changeNumOfCells(){
+    let numOfCells= document.getElementById('numberOfCells').value;
+    let gridPixels = container.querySelectorAll('div');
+    gridPixels.forEach(gridPixel => gridPixel.remove());
+
+    if (numOfCells>=1 && numOfCells<=100){
         makeGrid(numOfCells);
     }
-    else if(numOfCells== null){
-        return;
-    }
     else {
-    alert('Make sure your number is between 1 and 100');
-    clearGrid();
+        alert('Make sure your number is between 1 and 100');
+        makeGrid(16);
     }
 }
+
+applyButton.addEventListener('click',changeNumOfCells);
 restartButton.addEventListener('click',clearGrid);
-window.onload = makeGrid(16);
+makeGrid(16);
 
